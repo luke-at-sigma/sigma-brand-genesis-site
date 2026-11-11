@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<title>Sigma Brand · Private</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Advercase";src:url("Advercase-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--ink:#111114;--body:#5F5F66;--meta:#6E6E78;--surface:#F7F7F8;--border:#E5E5E9;--border-subtle:#EEEEF1;--blue:#1A70F1;--blue-hover:#1660D6}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#fff;color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
+#grid{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.top{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:2;background:rgba(255,255,255,.85);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-subtle)}
+.top img{height:22px;display:block}
+.chip{display:inline-flex;align-items:center;height:26px;padding:0 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:12.5px;color:var(--body)}
+.stage{position:relative;z-index:1;min-height:100%;display:grid;place-items:center;padding:80px 24px 56px}
+.card{width:min(520px,100%);display:grid;gap:14px;justify-items:start}
+.eyebrow{margin:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--meta)}
+h1{margin:0;font-family:"Advercase",serif;font-weight:400;font-size:clamp(2.25rem,3.4vw,3.1rem);line-height:1.06;letter-spacing:-.018em;color:var(--ink)}
+.sub{margin:2px 0 8px;max-width:430px;font-size:15px;line-height:1.5;color:var(--body)}
+.form{display:flex;gap:8px;align-items:center;width:100%;flex-wrap:wrap}
+.cell{flex:1 1 280px;min-width:0;height:48px;display:flex;align-items:center;border-radius:999px;background:var(--surface);border:1px solid var(--border);transition:border-color .2s,box-shadow .2s}
+.cell:focus-within{border-color:#C9C9CF;box-shadow:0 0 0 3px rgba(26,112,241,.18);background:#fff}
+.ref{flex:none;height:100%;display:grid;place-items:center;padding:0 16px 0 18px;font:500 12px "DM Mono",ui-monospace,monospace;color:var(--meta);border-right:1px solid var(--border)}
+.cell label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.cell input{all:unset;box-sizing:border-box;flex:1;min-width:0;height:100%;padding:0 18px;font:500 15px "DM Sans",sans-serif;letter-spacing:.04em;color:var(--ink);caret-color:var(--ink)}
+.cell input::placeholder{color:var(--meta);letter-spacing:0;font-weight:400}
+.go{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:999px;background:var(--blue);color:#fff;font:500 16px "DM Sans",sans-serif;letter-spacing:-.01em;transition:background .2s}
+.go:hover{background:var(--blue-hover)}
+.go:focus-visible{box-shadow:0 0 0 3px rgba(26,112,241,.35)}
+.go svg{width:16px;height:16px}
+.msg{min-height:20px;margin:0;font-size:13.5px;color:var(--body)}
+.msg.err{color:var(--ink)}
+.msg.err::before{content:"";display:inline-block;width:6px;height:6px;border-radius:999px;background:var(--ink);margin-right:8px;vertical-align:middle}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.pills span{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border-subtle);font-size:12.5px;color:var(--body)}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}}
+.busy .go{opacity:.7}
+.fine{position:fixed;left:28px;bottom:20px;z-index:2;font-size:12px;color:var(--meta)}
+.fade{transition:opacity .3s;opacity:0}
+.layer{position:absolute;inset:0;transition:opacity ease-in-out}
+.sel{position:absolute;border:1px solid rgba(26,112,241,.38);background:rgba(26,112,241,.05)}
+.sel i{position:absolute;right:-3px;bottom:-3px;width:6px;height:6px;background:rgba(26,112,241,.6)}
+@media(max-width:560px){.top{padding:0 18px}.fine{left:18px}.go{flex:1;justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="grid" aria-hidden="true"></div>
+<header class="top"><img src="logo-black.svg" alt="Sigma"><span class="chip">Private</span></header>
+<main class="stage">
+  <div class="card" id="card">
+    <p class="eyebrow">Private working draft</p>
+    <h1>Sigma brand genesis</h1>
+    <p class="sub">The working brand book for the new site and campaigns. Enter the password to continue.</p>
+    <form class="form" id="form" autocomplete="off">
+      <div class="cell">
+        <span class="ref" aria-hidden="true">A1</span>
+        <label for="pw">Password</label>
+        <input id="pw" type="password" name="password" placeholder="Password" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" required autofocus>
+      </div>
+      <button class="go" id="go" type="submit">Continue
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    <div class="pills" aria-hidden="true"><span>Analytics</span><span>Apps</span><span>Agents</span></div>
+  </div>
+</main>
+<div class="fine">Sigma Computing · Confidential</div>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s);
+const enc=new TextEncoder();
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- the spreadsheet grid: faint cells, a spotlight that is a peek, one range selection ---------- */
+const CW=104,CH=34,FADE=1600,HOLD=2600,GAP=900;
+const lines=c=>`background-image:linear-gradient(to right,${c} 1px,transparent 1px),linear-gradient(to bottom,${c} 1px,transparent 1px);background-size:${CW}px ${CH}px;`;
+let timers=[];
+function grid(){
+  timers.forEach(clearTimeout);timers=[];
+  const host=$('#grid');host.innerHTML='';
+  const mask='radial-gradient(ellipse 78% 70% at 50% 45%,#000 20%,transparent 100%)';
+  const base=document.createElement('div');
+  base.style.cssText='position:absolute;inset:0;'+lines('rgba(17,17,20,.055)')+`-webkit-mask-image:${mask};mask-image:${mask}`;
+  host.appendChild(base);
+  if(reduce)return;
+  const W=host.clientWidth,H=host.clientHeight,cols=Math.floor(W/CW),rows=Math.floor(H/CH);
+  const card=$('#card').getBoundingClientRect();
+  const keep={c0:Math.floor((card.left-CW)/CW),c1:Math.ceil((card.right+CW)/CW),r0:Math.floor((card.top-CH*2)/CH),r1:Math.ceil((card.bottom+CH*2)/CH)};
+  const wrap=document.createElement('div');wrap.style.cssText='position:absolute;inset:0';
+  const edge='linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent),linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)';
+  wrap.style.webkitMaskImage=edge;wrap.style.maskImage=edge;wrap.style.webkitMaskComposite='source-in';wrap.style.maskComposite='intersect';
+  host.appendChild(wrap);
+  const nodes=[0,1].map(()=>{const l=document.createElement('div');l.className='layer';l.style.opacity=0;l.style.transitionDuration=FADE*1.5+'ms';
+    const g=document.createElement('div');g.style.cssText='position:absolute;inset:0;'+lines('rgba(26,112,241,.14)')+'background-color:rgba(26,112,241,.015)';
+    const s=document.createElement('div');s.className='sel';s.style.display='none';s.innerHTML='<i></i>';
+    l.append(g,s);wrap.appendChild(l);return {l,g,s};});
+  function cycle(i){
+    const n=nodes[i];
+    for(let a=0;a<30;a++){
+      const rc=2+Math.floor(Math.random()*3),rr=1+Math.floor(Math.random()*3);
+      const c=1+Math.floor(Math.random()*Math.max(1,cols-rc-1)),r=2+Math.floor(Math.random()*Math.max(1,rows-rr-3));
+      if(c<keep.c1&&c+rc>keep.c0&&r<keep.r1&&r+rr>keep.r0)continue;
+      const x=(c+rc/2)*CW,y=(r+rr/2)*CH,mask=`radial-gradient(circle 240px at ${x}px ${y}px,rgba(0,0,0,.8) 0%,rgba(0,0,0,.35) 45%,transparent 100%)`;
+      n.g.style.webkitMaskImage=mask;n.g.style.maskImage=mask;n.l.style.opacity=1;
+      if(i===0){const s=n.s;s.style.display='block';s.style.transition='none';s.style.left=c*CW+'px';s.style.top=r*CH+'px';s.style.width='0';s.style.height='0';s.style.opacity=0;
+        timers.push(setTimeout(()=>{s.style.transition='opacity .12s';s.style.width=CW+1+'px';s.style.height=CH+1+'px';s.style.opacity=1;},900));
+        timers.push(setTimeout(()=>{const cs=Math.max(1,rc-1),rs=Math.max(1,rr-1);s.style.transition=`width ${cs*170}ms steps(${cs},end),height ${rs*170}ms steps(${rs},end),opacity .12s`;s.style.width=rc*CW+1+'px';s.style.height=rr*CH+1+'px';},1350));}
+      timers.push(setTimeout(()=>{n.l.style.opacity=0;},FADE*1.5+HOLD*1.5));
+      break;
+    }
+    timers.push(setTimeout(()=>cycle(i),(FADE*3+HOLD*1.5+GAP)));
+  }
+  timers.push(setTimeout(()=>cycle(0),500));timers.push(setTimeout(()=>cycle(1),500+(FADE*3+HOLD*1.5+GAP)/2));
+}
+
+/* ---------- unlocking (AES-GCM; the key is derived in the browser) ---------- */
+let cfg=null;
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function config(){return cfg||(cfg=await (await fetch('config.json',{cache:'no-store'})).json());}
+async function derive(pw){
+  const c=await config(),base=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(c.salt),iterations:c.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+}
+async function check(key){
+  const buf=await (await fetch('check.bin',{cache:'no-store'})).arrayBuffer();
+  const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:buf.slice(0,12)},key,buf.slice(12));
+  return new TextDecoder().decode(plain)==='sigma-brand-genesis';
+}
+function idb(){return new Promise((res,rej)=>{const o=indexedDB.open('brand-gate',1);o.onupgradeneeded=()=>o.result.createObjectStore('k');o.onsuccess=()=>res(o.result);o.onerror=()=>rej(o.error);});}
+async function saveKey(key){const db=await idb();return new Promise((res,rej)=>{const t=db.transaction('k','readwrite');t.objectStore('k').put(key,'key');t.oncomplete=res;t.onerror=()=>rej(t.error);});}
+async function loadKey(){try{const db=await idb();return await new Promise(res=>{const g=db.transaction('k').objectStore('k').get('key');g.onsuccess=()=>res(g.result||null);g.onerror=()=>res(null);});}catch(e){return null;}}
+async function clearKey(){try{const db=await idb();await new Promise(res=>{const t=db.transaction('k','readwrite');t.objectStore('k').delete('key');t.oncomplete=res;t.onerror=res;});}catch(e){}
+  try{const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.unregister()));}catch(e){}}
+async function enter(){
+  await navigator.serviceWorker.register('sw.js');
+  await navigator.serviceWorker.ready;
+  document.body.classList.add('fade');
+  setTimeout(()=>{location.href='app/index.html';},reduce?0:300);
+}
+function say(t,err){const m=$('#msg');m.textContent=t;m.classList.toggle('err',!!err);}
+
+$('#form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const pw=$('#pw').value;if(!pw)return;
+  if(!window.crypto||!crypto.subtle){say('This page needs a secure (https) connection.',true);return;}
+  $('#form').classList.add('busy');say('Unlocking…');
+  try{
+    const key=await derive(pw);let ok=false;
+    try{ok=await check(key);}catch(err){ok=false;}
+    if(!ok){
+      $('#form').classList.remove('busy');say('That password didn’t work. Try again.',true);
+      $('#form').classList.remove('shake');void $('#form').offsetWidth;$('#form').classList.add('shake');$('#pw').select();return;
+    }
+    await saveKey(key);say('Welcome in.');await enter();
+  }catch(err){$('#form').classList.remove('busy');say('Something went wrong. Reload and try again.',true);}
+});
+
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(grid,200);});
+async function start(){
+  grid();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(grid);
+  if(location.hash==='#lock'){await clearKey();say('Locked. Sign in again to open it.');history.replaceState(null,'',location.pathname);return;}
+  if(location.hash==='#expired'){await clearKey();say('The password changed. Sign in again.',true);history.replaceState(null,'',location.pathname);return;}
+  const key=await loadKey();
+  if(key&&'serviceWorker' in navigator){try{if(await check(key)){await enter();}else{await clearKey();}}catch(e){}}
+}
+start();
+})();
+</script>
+</body>
+</html>
